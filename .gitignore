@@ -1,0 +1,13 @@
+# OS
+.DS_STORE
+
+# intelliJ
+.idea/
+
+# compiled build output
+out/
+build/
+
+# grade output & dependencies
+.gradle/
+*.swp
