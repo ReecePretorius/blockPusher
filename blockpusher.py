@@ -29,7 +29,7 @@ def main():
     pygame.display.set_caption('blockpusher') # window title
     CLOCK = pygame.time.Clock() #used for framerate, specific game clock
 
-    bgImage = pygame.image.load('title_screen_temp.png')
+    bgImage = pygame.image.load('resources/title_screen_temp.png')
 
     title_menu(bgImage, 0, 0)
 
@@ -74,8 +74,8 @@ def title_menu(img, x, y):
                 
     
 def button_maker(msg, x1, y1, x2, y2, ypos):
-    menuText_new_small = pygame.font.Font('knifer_0.otf', 48)
-    menuText_new_large = pygame.font.Font('knifer_0.otf', 56)
+    menuText_new_small = pygame.font.Font('resources/knifer_0.otf', 48)
+    menuText_new_large = pygame.font.Font('resources/knifer_0.otf', 56)
     mouse = pygame.mouse.get_pos()
 
     if x1 < mouse[0] < x2 and y1 < mouse[1] < y2:
