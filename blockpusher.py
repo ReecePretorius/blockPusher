@@ -13,12 +13,12 @@ HEIGHT = 600
 HALF_WIDTH = WIDTH/2
 HALF_HEIGHT = HEIGHT/2
 
+#COLORS#
 black = (0, 0, 0)
 white = (255, 255, 255)
 red = (255, 0, 0)
 green = (0, 255, 0)
 blue = (0, 0, 255)
-teal = (0, 128, 128)
 #########
 
 def main():
@@ -29,9 +29,9 @@ def main():
     pygame.display.set_caption('blockpusher') # window title
     CLOCK = pygame.time.Clock() #used for framerate, specific game clock
 
-    bgImage = pygame.image.load('resources/title_screen_temp.png')
+    imageDictionary = {'bgImage': pygame.image.load('resources/images/title_screen_temp.png')}
 
-    title_menu(bgImage, 0, 0)
+    title_menu(imageDictionary['bgImage'], 0, 0)
 
     crashed = False
 
@@ -39,7 +39,8 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 crashed = True
-            # print(event)
+            
+            print(event)
 
         pygame.display.update()
         CLOCK.tick(FPS)
@@ -50,6 +51,10 @@ def main():
 def text_object(text, font):
     textSurface = font.render(text, True, white)
     return textSurface, textSurface.get_rect()
+
+def exit_game():
+    pygame.quit()
+    quit()
        
 
 def title_menu(img, x, y):
@@ -63,32 +68,39 @@ def title_menu(img, x, y):
         #background image
         gameDisplay.blit(img, (x,y))
         #new game button
-        button_maker("new game", 330, 360, 470, 400, 80)
+        button_maker("new game", 330, 360, 470, 400, 80, game_loop)
         #continue button
-        button_maker("continue", 340, 420, 460, 460, 140)
+        button_maker("continue", 340, 420, 460, 460, 140, load_game)
         #quit button
-        button_maker("quit", 370, 480, 426, 520, 200)
+        button_maker("quit", 370, 480, 426, 520, 200, exit_game)
         
         pygame.display.update()
-        CLOCK.tick(30)
+        CLOCK.tick(FPS)
                 
     
-def button_maker(msg, x1, y1, x2, y2, ypos):
-    menuText_new_small = pygame.font.Font('resources/knifer_0.otf', 48)
-    menuText_new_large = pygame.font.Font('resources/knifer_0.otf', 56)
+def button_maker(msg, x1, y1, x2, y2, ypos, clicked = None):
+    menuText_new_small = pygame.font.Font('resources/fonts/knifer_0.otf', 48)
+    menuText_new_large = pygame.font.Font('resources/fonts/knifer_0.otf', 56)
     mouse = pygame.mouse.get_pos()
-
+    click = pygame.mouse.get_pressed()
+    #print(mouse)
     if x1 < mouse[0] < x2 and y1 < mouse[1] < y2:
         text, textArea = text_object(msg, menuText_new_large)
         textArea.center = (HALF_WIDTH, HALF_HEIGHT + ypos)
+        if click[0] == 1 and clicked != None:
+            clicked()
+            
     else:
         text, textArea = text_object(msg, menuText_new_small)
         textArea.center = (HALF_WIDTH, HALF_HEIGHT + ypos)
     
     gameDisplay.blit(text, textArea)
 
+def load_game():
+    print("continue")
+
 def game_loop():
-    pass
+    print("starting game")
     
 
 if __name__ == "__main__":
