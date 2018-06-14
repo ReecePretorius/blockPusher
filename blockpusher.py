@@ -34,7 +34,12 @@ def main():
     
     #Dictionary of images used to construct menus and playing fields
     imageDictionary = {'bgImage': pygame.image.load('resources/images/title_screen_temp.png'),
-                       'grid': pygame.image.load('resources/images/40x40Grid.png')}
+                       'grid': pygame.image.load('resources/images/40x40Grid.png'),
+                       'back_wall': pygame.image.load('resources/images/wall_pieces/back_wall.png'),
+                       'left_wall': pygame.image.load('resources/images/wall_pieces/left_wall.png'),
+                       'bottom_wall': pygame.image.load('resources/images/wall_pieces/bottom_wall.png'),
+                       'right_wall': pygame.image.load('resources/images/wall_pieces/right_wall.png'),
+                       'floor': pygame.image.load('resources/images/wall_pieces/floor.png')}
     
     #construct dictionary of levels
     getLevels = read_level_file()
@@ -59,25 +64,25 @@ def main():
             if event.type == pygame.QUIT:
                 crashed = True
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT:
+                if event.key == pygame.K_d:
                     #walk right
                     print('walking right')
-                    xspeed = 1
+                    xspeed = 2
                     direction = 'right'
-                elif event.key == pygame.K_LEFT:
+                elif event.key == pygame.K_a:
                     #walk left
                     print('walking left')
-                    xspeed = -1
+                    xspeed = -2
                     direction = 'left'
-                elif event.key == pygame.K_UP:
+                elif event.key == pygame.K_w:
                     #walk forward
                     print('walking forward')
-                    yspeed = -1
+                    yspeed = -2
                     direction = 'up'
-                elif event.key == pygame.K_DOWN:
+                elif event.key == pygame.K_s:
                     #walk down
                     print('walking down')
-                    yspeed = 1
+                    yspeed = 2
                     direction = 'down'
                 elif event.key == pygame.K_ESCAPE:
                     print('closing')
@@ -85,28 +90,32 @@ def main():
                     quit()
             
             elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_RIGHT:
+                if event.key == pygame.K_d:
                     #walk right
+                    xpos = 0
                     xspeed = 0
                     direction = 'right'    
-                elif event.key == pygame.K_LEFT:
+                elif event.key == pygame.K_a:
                     #walk left
+                    xpos = 0
                     xspeed = 0
                     direction = 'left'
-                elif event.key == pygame.K_UP:
+                elif event.key == pygame.K_w:
                     #walk forward
+                    ypos = 0
                     yspeed = 0
                     direction = 'up'
-                elif event.key == pygame.K_DOWN:
+                elif event.key == pygame.K_s:
                     #walk down
+                    ypos = 0
                     yspeed = 0
                     direction = 'down'        
             print(event)
 
-        xpos += xspeed
-        ypos += yspeed
+        xpos = xspeed
+        ypos = yspeed
 
-        build_level(imageDictionary['grid'], 0, 0)
+        build_level(imageDictionary, 0, 0)
         player1.update(xpos, ypos, gameDisplay, direction)
         pygame.display.update()
         CLOCK.tick(FPS)
@@ -128,6 +137,7 @@ def title_menu(img, x, y):
     while intro:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                pygame.quit()
                 quit()
         
         #background image
@@ -187,8 +197,12 @@ def read_level_file():
 def get_character():
     pass
 
-def build_level(img, x, y):
-    gameDisplay.blit(img, (x,y))
+def build_level(dict, x, y):
+    gameDisplay.blit(dict['floor'], (40,80))
+    gameDisplay.blit(dict['back_wall'], (x,y))
+    gameDisplay.blit(dict['left_wall'], (x,y))
+    gameDisplay.blit(dict['right_wall'], (760,y))
+    gameDisplay.blit(dict['bottom_wall'], (40,560))
 
 def run_level():
     pass    

@@ -2,15 +2,15 @@ import pygame
 
 class Player:
     def __init__(self, screen):
-        self.x = 200
-        self.y = 300
+        self.x = 360
+        self.y = 240
 
-        self.ani_speed_init = 5
+        self.ani_speed_init = 10
         self.ani_speed = self.ani_speed_init
-        self.aniL = ['resources/characters/triangle/left1.png','resources/characters/triangle/left2.png','resources/characters/triangle/left3.png','resources/characters/triangle/left4.png']
-        self.aniR = ['resources/characters/triangle/right1.png','resources/characters/triangle/right2.png','resources/characters/triangle/right3.png','resources/characters/triangle/right4.png']
-        self.aniU = ['resources/characters/triangle/up1.png','resources/characters/triangle/up2.png','resources/characters/triangle/up3.png','resources/characters/triangle/up4.png']
-        self.aniD = ['resources/characters/triangle/down1.png','resources/characters/triangle/down2.png','resources/characters/triangle/down3.png','resources/characters/triangle/down4.png']
+        self.aniL = ['resources/characters/tim/tim_left.png','resources/characters/tim/tim_left2.png']
+        self.aniR = ['resources/characters/tim/tim_right.png','resources/characters/tim/tim_right2.png']
+        self.aniU = ['resources/characters/tim/tim_up.png','resources/characters/tim/tim_up2.png']
+        self.aniD = ['resources/characters/tim/tim_up.png','resources/characters/tim/tim_up2.png']
         self.aniL.sort()
         self.aniR.sort()
         self.aniU.sort()
