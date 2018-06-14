@@ -46,40 +46,68 @@ def main():
     title_menu(imageDictionary['bgImage'], 0, 0)
     
     player1 = player.Player(gameDisplay)
-    pos = 0
-    direction = 'left'
+    xpos = 0
+    ypos = 0
+
+    xspeed = 0
+    yspeed = 0
+    direction = 'up'
     #main game loop#############################################
     crashed = False
     while not crashed:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 crashed = True
-            elif event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
-                #walk right
-                print('walking right')
-                pos = 1
-                direction = 'right'
-            elif event.type == pygame.KEYUP and event.key == pygame.K_RIGHT:
-                #walk right
-                pos = 0
-                direction = 'right'
-            elif event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT:
-                #walk left
-                print('walking left')
-                pos = -1
-                direction = 'left'
-            elif event.type == pygame.KEYUP and event.key == pygame.K_LEFT:
-                #walk left
-                pos = 0
-                direction = 'left'
-            elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                print('closing')
-                pygame.quit()
-                quit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    #walk right
+                    print('walking right')
+                    xspeed = 1
+                    direction = 'right'
+                elif event.key == pygame.K_LEFT:
+                    #walk left
+                    print('walking left')
+                    xspeed = -1
+                    direction = 'left'
+                elif event.key == pygame.K_UP:
+                    #walk forward
+                    print('walking forward')
+                    yspeed = -1
+                    direction = 'up'
+                elif event.key == pygame.K_DOWN:
+                    #walk down
+                    print('walking down')
+                    yspeed = 1
+                    direction = 'down'
+                elif event.key == pygame.K_ESCAPE:
+                    print('closing')
+                    pygame.quit()
+                    quit()
+            
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT:
+                    #walk right
+                    xspeed = 0
+                    direction = 'right'    
+                elif event.key == pygame.K_LEFT:
+                    #walk left
+                    xspeed = 0
+                    direction = 'left'
+                elif event.key == pygame.K_UP:
+                    #walk forward
+                    yspeed = 0
+                    direction = 'up'
+                elif event.key == pygame.K_DOWN:
+                    #walk down
+                    yspeed = 0
+                    direction = 'down'        
             print(event)
 
+        xpos += xspeed
+        ypos += yspeed
+
         build_level(imageDictionary['grid'], 0, 0)
-        player1.update(pos, gameDisplay, direction)
+        player1.update(xpos, ypos, gameDisplay, direction)
         pygame.display.update()
         CLOCK.tick(FPS)
     pygame.quit()
