@@ -33,7 +33,7 @@ def main():
     CLOCK = pygame.time.Clock() #used for framerate, specific game clock
     
     #Dictionary of images used to construct menus and playing fields
-    imageDictionary = {'bgImage': pygame.image.load('resources/images/title_screen_temp.png'),
+    imageDictionary = {'bgImage': pygame.image.load('resources/images/title_screen.png'),
                        'grid': pygame.image.load('resources/images/40x40Grid.png'),
                        'back_wall': pygame.image.load('resources/images/wall_pieces/back_wall.png'),
                        'left_wall': pygame.image.load('resources/images/wall_pieces/left_wall.png'),
@@ -51,12 +51,15 @@ def main():
     title_menu(imageDictionary['bgImage'], 0, 0)
     
     player1 = player.Player(gameDisplay)
-    xpos = 0
-    ypos = 0
-
-    xspeed = 0
-    yspeed = 0
+    xpos, ypos = 0, 0
+    xspeed, yspeed = 0, 0
     direction = 'up'
+
+    player_width = player1.get_dimensions('w')
+    player_height = player1.get_dimensions('h')
+
+    print(player_width,player_height)
+
     #main game loop#############################################
     crashed = False
     while not crashed:
@@ -203,6 +206,9 @@ def build_level(dict, x, y):
     gameDisplay.blit(dict['left_wall'], (x,y))
     gameDisplay.blit(dict['right_wall'], (760,y))
     gameDisplay.blit(dict['bottom_wall'], (40,560))
+
+def is_wall():
+    pass
 
 def run_level():
     pass    
